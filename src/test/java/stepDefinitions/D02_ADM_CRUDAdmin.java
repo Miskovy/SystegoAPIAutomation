@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 public class D02_ADM_CRUDAdmin {
@@ -25,6 +26,9 @@ public class D02_ADM_CRUDAdmin {
         payload.put("company_name", company_name);
         payload.put("phone", phonenum);
 
+        String token = System.getProperty("AUTH_TOKEN",
+                Optional.ofNullable(System.getenv("AUTH_TOKEN"))
+                        .orElse());
         response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(payload)
