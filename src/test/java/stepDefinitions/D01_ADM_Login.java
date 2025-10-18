@@ -55,6 +55,7 @@ public class D01_ADM_Login {
     @Then("the response should contain an authentication token")
     public void verifyAuthTokenExists() {
         authToken = response.jsonPath().getString("data.token");
+        AuthTokenHolder.setToken(authToken);
         response.then()
                 .body("data.token", notNullValue())
                 .body("data.token", not(emptyString()));

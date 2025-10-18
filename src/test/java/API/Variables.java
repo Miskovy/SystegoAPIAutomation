@@ -3,7 +3,7 @@ package API;
 public class Variables {
     final String BASE_URL = "https://bcknd.systego.net";
     final String ADMIN_AUTH_END = "/api/admin/auth/login";
-    final String POST_ADM_END =  "/api/admin/admin";
+    final String ADM_END =  "/api/admin/admin";
 
     public String getBASE_URL() {
         return BASE_URL;
@@ -13,7 +13,13 @@ public class Variables {
         return ADMIN_AUTH_END;
     }
 
-    public String getPOST_ADM_END() {
-        return POST_ADM_END;
+    public String get_ADMIN_END() {
+        return ADM_END;
+    }
+    public String getUPDATE_ADMIN_END(String id){
+        return ADM_END +"/"+id;
+    }
+    public String get_byID_ADMIN_END(String id){
+        return ADM_END +"/"+id;
     }
 }
