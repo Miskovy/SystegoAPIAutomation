@@ -5,6 +5,8 @@ public class Variables {
     final String ADMIN_AUTH_END = "/api/admin/auth/login";
     final String ADM_END =  "/api/admin/admin";
     final String PAYEMNT_METHOD_END = "/api/admin/payment_method";
+    final String WAREHOUSE_END = "/api/admin/warehouse";
+    final String TRANSFER_END = "/api/admin/transfer";
 
     public String getBASE_URL() {
         return BASE_URL;
@@ -26,5 +28,13 @@ public class Variables {
 
     public String getPAYEMNT_METHOD_END() {
         return PAYEMNT_METHOD_END;
+    }
+
+    public String getWAREHOUSE_END() {
+        return WAREHOUSE_END;
+    }
+
+    public String getTRANSFER_END() {
+        return TRANSFER_END;
     }
 }

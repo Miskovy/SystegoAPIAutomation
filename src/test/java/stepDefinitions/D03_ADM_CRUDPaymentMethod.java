@@ -163,4 +163,52 @@ public class D03_ADM_CRUDPaymentMethod {
     public void theResponseStatusCodeShouldBeDueToUpdateSuccessful(int statusCode) {
         response.then().statusCode(statusCode);
     }
+
+    @And("the success message is shown for updating a payment method")
+    public void theSuccessMessageIsShownForUpdatingAPaymentMethod() {
+        response.then().body("data.message", equalTo("Payment method updated successfully"));
+        response.then().body("data.paymentMethod",notNullValue());
+    }
+
+    @Then("the response status code should be {int} due to payment method not found")
+    public void theResponseStatusCodeShouldBeDueToPaymentMethodNotFound(int statusCode) {
+        response.then().statusCode(statusCode);
+    }
+
+    @And("the fail message is shown for updating a payment method")
+    public void theFailMessageIsShownForUpdatingAPaymentMethod() {
+        response.then().body("error", notNullValue());
+        response.then().body("error.message" , equalTo("Payment method not found"));
+    }
+
+    @When("I send a DEL request with {string} to delete the payment method")
+    public void iSendADELRequestWithToDeleteThePaymentMethod(String id) {
+        String authToken = AuthTokenHolder.getToken();
+        response = given()
+                .header("Content-Type" ,"application/json")
+                .header("Authorization", "Bearer " + authToken)
+                .when()
+                .delete(apiVariables.getPAYEMNT_METHOD_END()+"/"+id)
+                .then().log().all().extract().response();
+        System.out.println("\n=== DELETE A PAYMENT METHOD ===");
+        System.out.println("Status Code: "+ response.getStatusCode());
+        System.out.println("Response Body: "+ response.body().asString());
+    }
+
+    @And("the fail message is shown for deleting a payment method")
+    public void theFailMessageIsShownForDeletingAPaymentMethod() {
+        response.then().body("error",notNullValue());
+        response.then().body("error.message", equalTo("Payment method not found"));
+    }
+
+    @Then("the response status code should be {int} due to payment method deleted")
+    public void theResponseStatusCodeShouldBeDueToPaymentMethodDeleted(int statusCode) {
+        response.then().statusCode(statusCode);
+    }
+
+    @And("the success message is shown for deleting a payment method")
+    public void theSuccessMessageIsShownForDeletingAPaymentMethod() {
+        response.then().body("data",notNullValue());
+        response.then().body("data.message",equalTo("Payment method deleted successfully"));
+    }
 }

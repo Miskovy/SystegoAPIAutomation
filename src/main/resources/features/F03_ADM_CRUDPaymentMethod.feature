@@ -75,3 +75,33 @@ Feature: an Admin has the ability to CRUD a Payment Method
     Examples:
       | name | paymentMethodId |
       | Changed name Payment Test | 68f4fc7192992b812dd8db09 |
+
+  @FailTest
+  Scenario Outline: an Admin isn't able to update the requested payment method
+    Given the API base URL
+    When I send a PUT request with "<name>" in body , with id "<paymentMethodId>" to update payment method
+    Then the response status code should be 400 due to payment method not found
+    And the fail message is shown for updating a payment method
+    Examples:
+      | name | paymentMethodId |
+      | Changed name Payment Test | 68f4fc7102982b812dd8db09 |
+
+  @FailTest
+  Scenario Outline: an Admin isn't able to delete the requested payment method
+    Given the API base URL
+    When I send a DEL request with "<id>" to delete the payment method
+    Then the response status code should be 404 due to payment method not found
+    And the fail message is shown for deleting a payment method
+    Examples:
+      | id |
+      | 68d25543af666e01035ce6d5 |
+
+  @SuccessTest
+  Scenario Outline: an Admin is able to delete the requested payment method
+    Given the API base URL
+    When I send a DEL request with "<id>" to delete the payment method
+    Then the response status code should be 200 due to payment method deleted
+    And the success message is shown for deleting a payment method
+    Examples:
+      | id |
+      | 68d25543af666e01035ce6d5 |
